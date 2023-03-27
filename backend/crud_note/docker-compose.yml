@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+
+  db:
+    container_name: crud_note_db
+    image: postgres:14.1-alpine
+    env_file:
+      - env/.env.local
+    volumes:
+      - ./db_backup:/var/lib/postgresql/data
+    restart: always 
+
+  crud_note:
+    container_name: crud_note_app 
+    tty: true
+    stdin_open: true
+    build: .
+    volumes:
+      - .:/app
+    command: >
+      sh -c "python /app/manage.py collectstatic --noinput &&
+             python /app/manage.py makemigrations &&
+             python /app/manage.py migrate &&
+             python /app/manage.py init_admin &&
+             gunicorn crud_note.wsgi --threads 4 --timeout 240 --bind 0.0.0.0:2286  --reload --workers 3 --chdir /app/"
+    restart: always
+    expose:
+      - 2286
+    ports:
+      - 2286:2286
+    env_file:
+      - env/.env.local
+    depends_on:
+      - db
+

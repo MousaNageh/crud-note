@@ -11,6 +11,8 @@ RUN apk update &&  apk add postgresql-dev gcc python3-dev musl-dev \
     py3-setuptools tiff-dev jpeg-dev openjpeg-dev zlib-dev \
     freetype-dev lcms2-dev libwebp-dev tcl-dev tk-dev harfbuzz-dev \
     fribidi-dev libimagequant-dev libxcb-dev libpng-dev
+
+
 RUN pip install --upgrade pip
 
 RUN pip install -r requirements.txt

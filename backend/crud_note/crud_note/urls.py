@@ -17,9 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-
+from crud_note.api_urls import apis 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include(apis)),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
 
 admin.site.site_header = "Dashboard"

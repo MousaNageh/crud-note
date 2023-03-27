@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model as user
 from django.core.management.base import BaseCommand, CommandError
-
+from error_logger import ErrorLogger
 class Command(BaseCommand):
     def handle(self, *args, **options):
         try :
@@ -11,8 +11,8 @@ class Command(BaseCommand):
                 is_active=True
             )
             if created:
-                created_user.set_password('12345')
+                created_user.set_password('123456789')
                 created_user.save()
-            print("current admin : ", created_user)
         except Exception as e:
+            ErrorLogger().write_error_to_file(str(e))
             raise CommandError(e)

@@ -21,7 +21,7 @@
         docker exec crud_note_app python manage.py test
       ```
 ### 5) Dashboard Url  :  
-   - `http://127.0.0.1:2286/admin/`
+   - `http://127.0.0.1:2286`
 ### 6) Created User credentials is :
    - email : `admin@admin.com`
    - password : `123456789`

@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'base_commands',
     'user',
+    'note',
 ]
 
 MIDDLEWARE = [
@@ -204,5 +205,6 @@ JAZZMIN_SETTINGS = {
         "auth.user": "fas fa-user",
         "auth.Group": "fas fa-users",
         "user.User": "fas fa-user",
+        "note.Note":"fas fa-sticky-note"
     },
 }

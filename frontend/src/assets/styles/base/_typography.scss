@@ -1,0 +1,67 @@
+// thin
+@font-face {
+  font-family: "promptThin";
+  src: url("../../fonts/thin/Prompt-Thin.eot"),
+    url("../../fonts/thin/Prompt-Thin.woff2") format("woff2"),
+    url("../../fonts/thin/Prompt-Thin.woff") format("woff"),
+    url("../../fonts/thin/Prompt-Thin.ttf") format("truetype");
+}
+
+// light
+@font-face {
+  font-family: "promptLight";
+  src: url("../../fonts/light/Prompt-Light.eot"),
+    url("../../fonts/light/Prompt-Light.woff2") format("woff2"),
+    url("../../fonts/light/Prompt-Light.woff") format("woff"),
+    url("../../fonts/light/Prompt-Light.ttf") format("truetype");
+}
+
+// Regular
+@font-face {
+  font-family: "promptRegular";
+  src: url("../../fonts/regular/Prompt-Regular.eot"),
+    url("../../fonts/regular/Prompt-Regular.woff2") format("woff2"),
+    url("../../fonts/regular/Prompt-Regular.woff") format("woff"),
+    url("../../fonts/regular/Prompt-Regular.ttf") format("truetype");
+}
+
+// medium
+@font-face {
+  font-family: "promptMedium";
+  src: url("../../fonts/medium/Prompt-Medium.eot"),
+    url("../../fonts/medium/Prompt-Medium.woff2") format("woff2"),
+    url("../../fonts/medium/Prompt-Medium.woff") format("woff"),
+    url("../../fonts/medium/Prompt-Medium.ttf") format("truetype");
+}
+
+// SemiBold
+@font-face {
+  font-family: "promptSemiBold";
+  src: url("../../fonts/semi-bold/Prompt-SemiBold.eot"),
+    url("../../fonts/semi-bold/Prompt-SemiBold.woff2") format("woff2"),
+    url("../../fonts/semi-bold/Prompt-SemiBold.woff") format("woff"),
+    url("../../fonts/semi-bold/Prompt-SemiBold.ttf") format("truetype");
+}
+
+// Bold
+@font-face {
+  font-family: "promptBold";
+  src: url("../../fonts/bold/Prompt-Bold.eot"),
+    url("../../fonts/bold/Prompt-Bold.woff2") format("woff2"),
+    url("../../fonts/bold/Prompt-Bold.woff") format("woff"),
+    url("../../fonts/bold/Prompt-Bold.ttf") format("truetype");
+}
+
+/* Prompt  Font Family */
+$thin: "promptThin", sans-serif; // regular
+
+// All Light fonts Will be Regular
+$light: "promptRegular", sans-serif;
+
+$regular: "promptRegular", sans-serif; // regular
+
+$medium: "promptMedium", sans-serif; // regular
+
+$semiBold: "promptSemiBold", sans-serif; //bold
+
+$bold: "promptBold", sans-serif; //bold

@@ -1,0 +1,30 @@
+<div class="loftborn-container login">
+  <form [formGroup]="signInForm" (ngSubmit)="signIn()" class="luftborn-form">
+    <div class="row justify-content-center align-items-center h-100 py-5">
+      <div class="col-xl-3">
+        <input-text
+          [label]="'Email'"
+          [formControlName]="'email'"
+          [formControl]="formControlData('email')"
+          [errorMessages]="errorMessages"
+        ></input-text>
+        <input-text
+          [label]="'Password'"
+          [formControlName]="'password'"
+          [formControl]="formControlData('password')"
+          [errorMessages]="errorMessages"
+          [type]="'password'"
+        >
+        </input-text>
+        <span
+          class="text-danger bold s-mt-2"
+          *ngIf="errorMessage$ | async as message"
+          >{{ message }}</span
+        >
+        <div class="d-flex justify-content-end align-items-end my-3">
+          <button type="submit" class="orange-btn">Login</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

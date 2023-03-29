@@ -1,0 +1,33 @@
+<div class="notes my-5 py-5">
+  <div class="loftborn-container">
+    <div class="row">
+      <div class="d-flex justify-content-end align-items-end">
+        <button
+          type="submit"
+          class="orange-btn"
+          routerLink="/notes/create-note"
+        >
+          Create Note
+        </button>
+      </div>
+      <div class="col-lg-3 col-md-6 col-12 my-2" *ngFor="let note of  notes$ |async as notes">
+        <app-notes-item [note]="note"></app-notes-item>
+      </div>
+      <h4 class="text-center my-3" *ngIf="!(numberOfNotes$|async)">You have no notes Yet !!</h4>
+      <div class="my-3 d-flex justify-content-center align-items-center" *ngIf="(nextUrl$|async) as url">
+        <button
+          class="orange-btn"
+          (click)="loadMoreNotes(url)"
+        >
+          see more 
+        </button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+

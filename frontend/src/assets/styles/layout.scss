@@ -1,0 +1,83 @@
+@import "./app.scss";
+
+/* Some Resets */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+}
+a,
+a:link,
+a:hover,
+a:visited,
+a:active {
+  text-decoration: none !important;
+}
+
+ul {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none;
+}
+
+/* HTML Styles Start Here */
+html {
+  font-size: 16px;
+  @include x-small-screen {
+    font-size: 12px;
+  }
+
+  @include small-screen {
+    font-size: 13px;
+  }
+
+  @include medium-screen {
+    font-size: 14px;
+  }
+
+  @include normal-screen {
+    font-size: 15px;
+  }
+
+  @include large-screen {
+    font-size: 16px;
+  }
+}
+
+
+
+/* App Layout Container Styles Start Here */
+.loftborn-container {
+  max-width: 91%;
+  margin: 0 auto;
+}
+
+/* Scrollbar Styles Start Here */
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 2px;
+  background: $white;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background: $primary;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba($primary, 50%);
+}
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}

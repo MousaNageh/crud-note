@@ -1,0 +1,26 @@
+<nav class="loftborn-navbar">
+  <div class="loftborn-container">
+    <div class="loftborn-header d-flex align-items-center">
+      <div class="logo" role="button">
+        <img
+          routerLink="/"
+          src="../../../../../assets/imgs/NavLogo.17261d69.svg"
+          alt=""
+        />
+      </div>
+      <div class="login mx-5">
+        <ul class="">
+          <li *ngIf="isLoggedIn$ | async">
+            <a routerLinkActive="active-link" routerLink="/notes"> Notes </a>
+          </li>
+          <li *ngIf="isLoggedIn$ | async">
+            <a (click)="logOut()"> Logout </a>
+          </li>
+          <li *ngIf="!(isLoggedIn$ | async)">
+            <a routerLinkActive="active-link" routerLink="/login"> Login </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

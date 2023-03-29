@@ -1,0 +1,22 @@
+@import "../base/colors";
+@import "../base/typography";
+@import "../base/mixins";
+
+.orange-btn {
+  font-family: $regular;
+  border: none;
+  padding: 0.4rem 2.5rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  padding: 0.6rem 3rem;
+  color: $white;
+  background-color: $primary;
+
+  @include x-small-screen {
+    width: 100%;
+  }
+  @include medium-screen {
+    width: auto;
+  }
+}

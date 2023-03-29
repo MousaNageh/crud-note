@@ -1,0 +1,17 @@
+<div class="loftborn-container create">
+  <form [formGroup]="noteForm" (ngSubmit)="createNote()" class="luftborn-form">
+    <div class="row justify-content-center align-items-center h-100 py-5">
+      <div class="col-xl-3">
+        <input-text [label]="'Title'" [formControlName]="'title'" [formControl]="formControlData('title')"
+          [errorMessages]="errorMessages"></input-text>
+        <input-text [label]="'Description'" [formControlName]="'description'"
+          [formControl]="formControlData('description')" [errorMessages]="errorMessages" [type]="'textarea'">
+        </input-text>
+        <span class="text-danger bold s-mt-2" *ngIf="errorMessage$ | async as message">{{ message }}</span>
+        <div class="d-flex justify-content-end align-items-end my-3">
+          <button type="submit" class="orange-btn">Create</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,56 @@
+@import "../../../../../assets/styles/base/colors";
+@import "../../../../../assets/styles/base/typography";
+@import "../../../../../assets/styles/base/mixins";
+@import "../../../../../assets/styles/base/variables";
+.loftborn-navbar {
+  box-shadow: 0 3px 6px rgb(0 0 0 / 15%);
+  background-color: $black;
+  a {
+    font-size: 1rem; // 16px;
+    font-family: $regular;
+    color: $black;
+    z-index: 111111;
+    position: relative;
+  }
+  .logo {
+    z-index: 111111;
+    img {
+      width: 10rem;
+      @include normal-screen {
+        width: auto;
+      }
+    }
+  }
+
+  .loftborn-header {
+    padding: 1rem 0;
+    @include large-screen {
+      @include yCenter;
+      justify-content: space-between;
+    }
+
+    ul {
+      @include yCenter;
+      li {
+        padding: 0 2rem;
+        a {
+          color: $white;
+        }
+      }
+      .active-link {
+        border-bottom: solid 1px $white;
+      }
+    }
+
+    a {
+      color: $white;
+    }
+    .login {
+      cursor: pointer;
+    }
+    svg {
+      cursor: pointer;
+      fill: $white;
+    }
+  }
+}

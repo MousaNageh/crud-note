@@ -1,5 +1,5 @@
-<div class="loftborn-container create">
-    <form [formGroup]="noteForm" (ngSubmit)="updateNote()" class="luftborn-form">
+<div class="loftborn-container create" *ngIf="(note$|async) as note">
+    <form [formGroup]="noteForm" (ngSubmit)="updateNote(note.id)" class="luftborn-form">
         <div class="row justify-content-center align-items-center h-100 py-5">
             <div class="col-xl-3">
                 <input-text [label]="'Title'" [formControlName]="'title'" [formControl]="formControlData('title')"

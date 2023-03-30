@@ -8,7 +8,7 @@ export const upsertNote = createAction(
 );
 export const upsertNotes = createAction(
   '[Notes effect ] Upsert Notes',
-  props<{ notes: NoteList  }>()
+  props<{ notes: NoteList }>()
 );
 export const loadNoteList = createAction('[Note effect] load Note list');
 
@@ -17,16 +17,22 @@ export const noteListLoaded = createAction(
   props<{ NoteList: NoteList | null }>()
 );
 export const loadNoteListNext = createAction('[Note effect] load next list of notes',
-props<{ url: string}> ()
+  props<{ url: string }>()
 );
 
 export const createOrUpdateNote = createAction(
   '[Note effect] create or update note',
-  props<{ payload: NotePayload ,action: 'create'|'update',id:string|null }>()
+  props<{ payload: NotePayload, action: 'create' | 'update', id: string | null }>()
 );
+
+export const getOneNote = createAction(
+  '[Note effect] get one note',
+  props<{ id: string }>()
+);
+
 export const noteCreatedOrUpdated = createAction(
   '[Note effect]note has been created or updated',
-  props<{ response: Note,action: 'create'|'update' }>()
+  props<{ response: Note, action: 'create' | 'update' }>()
 );
 
 export const deleteNote = createAction(

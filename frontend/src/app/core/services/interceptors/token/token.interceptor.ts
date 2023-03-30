@@ -27,53 +27,39 @@ export class Interceptor implements HttpInterceptor {
     private httpService: HttpService,
     private route: Router,
     private store: Store
-  ) {}
+  ) { }
 
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    const token = request.clone({
+    const requestToSend = request.clone({
       headers: new HttpHeaders({
         Authorization: this.localStorage.getLocal('token')
           ? `Bearer ${this.localStorage.getLocal('token')}`
           : '',
       }),
     });
-    // return next.handle(token);
-    return next.handle(token).pipe(
+    return next.handle(requestToSend).pipe(
       catchError((error: any) => {
-        if (error.url.includes('/user/refresh')) {
-          // this.httpService.logoutSubj.next(true);
-          this.route.navigate(['/']);
-          return throwError(error);
-        }
-
-        if (
-          error.status === 401 &&
-          (error.error.code === 'token_not_valid' ||
-            error.error.code === 'user_not_found')
-        ) {
-          if (error.error.code === 'user_not_found') {
-            this.logOut();
-            window.location.href = '/';
-          }
-          return this.reAuthenticate(error, token).pipe(
+        if (error.status === 401 && error.error.code === 'token_not_valid' && !error.url.includes("auth/refresh-token")) {
+          return this.reAuthenticate(error, requestToSend).pipe(
             switchMap(() => {
-              const token = request.clone({
+              const newRequest = request.clone({
                 headers: new HttpHeaders({
                   Authorization: this.localStorage.getLocal('token')
                     ? `Bearer ${this.localStorage.getLocal('token')}`
                     : '',
                 }),
               });
-              return next.handle(token);
+              return next.handle(newRequest);
             })
           );
         }
 
         return throwError(error);
       })
+
     );
   }
   reAuthenticate(error: any, langReq: any): Observable<any> {
@@ -85,10 +71,9 @@ export class Interceptor implements HttpInterceptor {
       return empty();
     }
     return this.httpService
-      .postWithOutLoading('api/auth/refresh/', { refresh })
+      .postWithOutLoading('api/auth/refresh-token/', { refresh })
       .pipe(
         tap((res) => {
-          // localStorage.setItem('token', res.access);
           this.store.dispatch(LoginActions.updateToken({ access: res.access }));
         }),
         catchError((error) => {

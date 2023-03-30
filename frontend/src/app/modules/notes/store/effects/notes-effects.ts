@@ -13,17 +13,16 @@ export class NoteEffects {
   createOrUpdateNoteEffect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(NotesActions.createOrUpdateNote),
-      exhaustMap((payload) =>
-          {
-              if(payload.action=='create'){
-                return this.httpService
-              .post<Note>('api/note/', payload.payload)
-              .pipe(catchError((error) => of({ error })))
-              }
-              return this.httpService
-              .put<Note>(`api/note/${payload.id}/`, payload.payload)
-              .pipe(catchError((error) => of({ error })))
-          }
+      exhaustMap((payload) => {
+        if (payload.action == 'create') {
+          return this.httpService
+            .post<Note>('api/note/', payload.payload)
+            .pipe(catchError((error) => of({ error })))
+        }
+        return this.httpService
+          .put<Note>(`api/note/${payload.id}/`, payload.payload)
+          .pipe(catchError((error) => of({ error })))
+      }
       ),
       tap((res) => {
         if (!('error' in res)) this.router.navigate(['notes']);
@@ -43,14 +42,21 @@ export class NoteEffects {
     this.actions$.pipe(
       ofType(NotesActions.loadNoteList),
       exhaustMap(() => this.httpService.get<NoteList>('api/note/')),
-      map((notes:NoteList) => NotesActions.upsertNotes({ notes }))
+      map((notes: NoteList) => NotesActions.upsertNotes({ notes }))
+    )
+  );
+  NoteGetOneEffect$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(NotesActions.getOneNote),
+      exhaustMap((payload) => this.httpService.get<Note>(`api/note/${payload.id}/`)),
+      map((note: Note) => NotesActions.upsertNote({ note }))
     )
   );
 
   NoteGetNextEffect$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(NotesActions.loadNoteListNext),exhaustMap((payload) => this.httpService.get<NoteList>(payload.url)),
-      map((notes:NoteList) => NotesActions.upsertNotes({ notes }))
+      ofType(NotesActions.loadNoteListNext), exhaustMap((payload) => this.httpService.get<NoteList>(payload.url)),
+      map((notes: NoteList) => NotesActions.upsertNotes({ notes }))
     )
   );
 
@@ -59,10 +65,10 @@ export class NoteEffects {
       ofType(NotesActions.deleteNote),
       exhaustMap((payload) =>
         this.httpService
-          .deleteReq<{id:string}>(`api/note/${payload.id}/`,)
+          .deleteReq<{ id: string }>(`api/note/${payload.id}/`,)
           .pipe(
-            catchError((error) => of({error})),
-            map(()=>({id:payload.id}))
+            catchError((error) => of({ error })),
+            map(() => ({ id: payload.id }))
           )
       ),
       map((res) => {
@@ -81,5 +87,5 @@ export class NoteEffects {
     private httpService: HttpService,
     private store: Store,
     private router: Router
-  ) {}
+  ) { }
 }

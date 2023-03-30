@@ -55,7 +55,7 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(LoginActions.updateToken),
         tap((res) => {
-          this.localStorage.setLocal('refresh', res.access);
+          this.localStorage.setLocal('token', res.access);
         })
       ),
     { dispatch: false }
@@ -92,5 +92,5 @@ export class AuthEffects {
     private localStorage: LocalStorageService,
     private router: Router,
     private store: Store
-  ) {}
+  ) { }
 }

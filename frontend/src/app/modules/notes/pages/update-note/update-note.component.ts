@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Note, NotePayload } from '../../interfaces/notes';
-import { createOrUpdateNote } from '../../store/actions/notes-actions';
-import { selectErrorOfNote } from '../../store/selectors/notes-selectors';
+import { createOrUpdateNote, getOneNote } from '../../store/actions/notes-actions';
+import { selectErrorOfNote, selectOneNote } from '../../store/selectors/notes-selectors';
 
 @Component({
   selector: 'app-update-note',
@@ -14,6 +15,7 @@ import { selectErrorOfNote } from '../../store/selectors/notes-selectors';
 export class UpdateNoteComponent implements OnInit {
   noteForm!: FormGroup;
   errorMessage$!: Observable<string>;
+  note$!: Observable<Note>;
   errorMessages = {
     title: {
       required: 'Title is required',
@@ -22,8 +24,16 @@ export class UpdateNoteComponent implements OnInit {
       required: 'description is required',
     },
   };
-  constructor(private formBuilder: FormBuilder, private store: Store) {}
+  constructor(private formBuilder: FormBuilder, private store: Store, private route: ActivatedRoute) { }
   ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      this.note$ = this.store.select(selectOneNote(params['id'])).pipe(tap(note => {
+        if (note)
+          this.noteForm.setValue({ title: note.title, description: note.description })
+        else
+          this.store.dispatch(getOneNote({ id: params['id'] }))
+      }))
+    })
     this.initNoteForm();
     this.errorMessage$ = this.store.select(selectErrorOfNote);
   }
@@ -32,18 +42,17 @@ export class UpdateNoteComponent implements OnInit {
       title: ['', [Validators.required]],
       description: ['', [Validators.required]],
     });
-    // this.noteForm.setValue({title:this.note.title,description:this.note.description})
   }
   formControlData(formControl: any): FormControl {
     return this.noteForm.get(formControl) as FormControl;
   }
-  updateNote(): void {
+  updateNote(id: string): void {
     if (this.noteForm.invalid) {
       this.noteForm.markAllAsTouched();
       return;
     }
-    let payload:NotePayload = (this.noteForm.value) as NotePayload
-    // this.store.dispatch(createOrUpdateNote({payload,action:'update',id:this.note.id }));
+    let payload: NotePayload = (this.noteForm.value) as NotePayload
+    this.store.dispatch(createOrUpdateNote({ payload, action: 'update', id }));
   }
 
 }

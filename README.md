@@ -71,5 +71,5 @@
   ```
   or :
   ```sh
-    ng server
+    ng serve
   ```

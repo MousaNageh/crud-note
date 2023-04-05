@@ -50,7 +50,7 @@
 
 - [Node js ](https://nodejs.org/en/download)
 
-## Frontend installation and inf
+## Frontend installation and info
 
 ### 1) isntall packages :
 
